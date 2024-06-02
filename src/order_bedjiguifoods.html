@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <style>
+   .container {
+        width: 595pt;
+        height: 842pt;
+        display: flex;
+        overflow: auto;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .text {
+        top: 30pt;
+        left: 200pt;
+        margin: auto;
+        position: absolute;
+      }
+      .text1 {
+        flex-wrap: wrap;
+        top: 80pt;
+        left: 200pt;
+        position: absolute;
+        font-size: 24pt;
+      }
+      .text2 {
+        top: 130pt;
+        left: 85pt;
+        position: absolute;
+        font-size: 20pt;
+      }
+      .text3 {
+        top: 130pt;
+        left: 275pt;
+        position: absolute;
+        font-size: 20pt;
+      }
+      .text4 {
+        top: 130pt;
+        right: 85pt;
+        position: absolute;
+        font-size: 20pt;
+      }
+      hr {
+        border: none;
+        border-top: 1px dotted #000;
+        color: #fff;
+        background-color: #fff;
+        height: 1px;
+        width: 80%;
+        top: 150pt;
+        position: absolute;
+      }
+
+      @media print {
+        @page {
+          size: A4;
+        }
+      }
+  </style>
+ </head>
+ <body onload="window.print()">
+  <div class="container">
+   <h1 class="text">
+    BEDJIGUI foods
+   </h1>
+   <span class="text1">
+    merci pour la confiance :)
+   </span>
+   <span class="text2">
+    Menu
+   </span>
+   <span class="text3">
+    Quantité
+   </span>
+   <span class="text4">
+    Prix
+   </span>
+   <hr/>
+   <span style="top:170pt; left:85pt; position:absolute; font-size:20pt;">
+    coco
+   </span>
+   <span style="top:170pt; left:275pt; position:absolute; font-size:20pt;">
+    x1
+   </span>
+   <span style="top:170pt; right:85pt; position:absolute; font-size:20pt;">
+    21.0
+   </span>
+   <span style="top:190pt; left:85pt; position:absolute; font-size:20pt;">
+    lolo
+   </span>
+   <span style="top:190pt; left:275pt; position:absolute; font-size:20pt;">
+    x2
+   </span>
+   <span style="top:190pt; right:85pt; position:absolute; font-size:20pt;">
+    11.0
+   </span>
+   <hr style="top:230pt;"/>
+   <span style="top:250pt; left:85pt; position:absolute; font-size:20pt;">
+    Total: total des menus commandés 3, 	 prix total à payer: 43.0 €
+   </span>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,6 @@
+Babel==2.15.0
+beautifulsoup4==4.12.3
+pillow==10.3.0
+soupsieve==2.5
+tk==0.1.0
+tkcalendar==1.6.1
