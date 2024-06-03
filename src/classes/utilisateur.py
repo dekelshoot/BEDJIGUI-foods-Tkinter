@@ -53,9 +53,9 @@ class Utilisateur:
 
         # Ajouter l'utilisateur à la base de données
         data = self.get_all()
-        est_admin = 1 if len(data) == 0 else 0  # Premier utilisateur est admin
+        self.est_admin = 1 if len(data) == 0 else 0  # Premier utilisateur est admin
         self.cursor.execute('INSERT INTO utilisateur (nom, prenom, nom_d_utilisateur, mot_de_passe, email, telephone, est_admin, adresse) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', 
-                            (self.nom, self.prenom, self.nom_d_utilisateur, self.mot_de_passe, self.email, self.telephone, est_admin, self.adresse))
+                            (self.nom, self.prenom, self.nom_d_utilisateur, self.mot_de_passe, self.email, self.telephone, self.est_admin, self.adresse))
         self.conn.commit()  # Valider la transaction
 
         # Récupérer l'utilisateur pour obtenir son ID
@@ -71,6 +71,7 @@ class Utilisateur:
             user['telephone'] = self.telephone
             user['nom_d_utilisateur'] = self.nom_d_utilisateur
             user['adresse'] = self.adresse
+            user['est_admin'] = self.est_admin
         return 'Le compte a été créé'
 
     def get(self):
@@ -119,7 +120,7 @@ class Utilisateur:
                 user['nom_d_utilisateur'] = usr[0][3]
                 user['email'] = usr[0][5]
                 user['telephone'] = usr[0][6]
-                user['adresse'] = usr[0][7]
+                user['est_admin'] = usr[0][7]
             return 'connexion réussie'
         return 'le mot de passe ou le nom d\'utilisateur ne correspond pas'
 

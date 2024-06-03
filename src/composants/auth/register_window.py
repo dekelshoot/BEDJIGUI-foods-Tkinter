@@ -107,6 +107,7 @@ class RegisterWindow(tk.Toplevel):
             message=user.register()
             if message == 'Le compte a été créé':
                 self.destroy()
+                self.master.init_accueil()
             usr_rep=messagebox.askokcancel(message,message)
             if usr_rep:
                 pass      

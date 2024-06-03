@@ -76,14 +76,18 @@ class LoginWindow(tk.Toplevel):
         # Vérification du message de retour
         if message == 'connexion réussie':
             self.destroy()  # Fermer la fenêtre si la connexion réussit
+            self.master.init_accueil()
         usr_rep = messagebox.askokcancel(message, message)  # Afficher un message
         if usr_rep:
             pass
 
     def register(self):
         # Ouvrir une nouvelle fenêtre d'inscription
-        register_win = RegisterWindow(self)
-        register_win.grab_set()  # Mettre la nouvelle fenêtre en avant
+        register_win = RegisterWindow(self.master)
+        register_win.attributes('-topmost', True)
+        register_win.grab_set() # Mettre la nouvelle fenêtre en avant
+        register_win.focus_force()
+        self.destroy()
 
     def destroy(self):
         # Fermer la fenêtre de manière propre
