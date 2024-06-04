@@ -8,7 +8,7 @@ class RegisterWindow(tk.Toplevel):
         super().__init__(parent)
 
         self.win_width = 420
-        self.win_height = 480
+        self.win_height = 430
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
 

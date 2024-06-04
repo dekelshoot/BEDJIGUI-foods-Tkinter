@@ -10,7 +10,7 @@ class LoginWindow(tk.Toplevel):
 
         # Dimensions de la fenêtre
         self.win_width = 360
-        self.win_height = 300
+        self.win_height = 210
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
 

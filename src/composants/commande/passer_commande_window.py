@@ -70,11 +70,14 @@ class PasserCommand(tk.Toplevel):
         self.row_count = tk.IntVar()
         self.row_count.set(1)
 
-        self.total_lbl = ttk.Label(self.main_frame, text="Total:")
+        self.total_lbl = ttk.Label(self.main_frame, text="Total: ")
         self.total_lbl.grid(column=0, row=3, padx=0, pady=0)
         
         self.sel_total_lbl = ttk.Label(self.main_frame, text="-")
-        self.sel_total_lbl.grid(column=0, row=3, padx=(50,0), pady=10)
+        self.sel_total_lbl.grid(column=0, row=3, padx=(60,0), pady=10)
+
+        self.btn_total_menu = ttk.Button(self.main_frame, text="Calculer", command=self.calculate_price)
+        self.btn_total_menu.grid(column=1, row=3, padx=(50,0), pady=10)
 
         self.btn_ajouter_menu = ttk.Button(self.main_frame, text="Ajouter un menu", command=self.ajouter_menu)
         self.btn_ajouter_menu.grid(column=0, row=4, padx=(50,0), pady=10)
@@ -102,8 +105,28 @@ class PasserCommand(tk.Toplevel):
             
         except Error as e:
             print(e)
+
+    def calculate_price(self):
+        try:
+            menu = Menu('restaurant.db')
+            orders = []
+            total=0
+            for order in self.order_ls:
+                if order.retrieve_data()[0] != 'Sélectionner le menu':
+                    temp = (order.retrieve_data())
+                    price =  menu.get_by_champ("nom",temp[0])[0][3]
+                    orders.append((temp[1],price))
+                    total+= int(temp[1])*price
+            print(orders, total)
+            self.sel_total_lbl.config(text="-")
+            self.sel_total_lbl.config(text="  "+str(total)+"€")
+
+            
+        except Error as e:
+            print(e)
     
     def enregistre_commande(self,orders):
+
         print(orders)
 
         menu = Menu('restaurant.db')

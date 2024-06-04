@@ -199,7 +199,6 @@ class GererCommandAdminWindow(tk.Toplevel):
             messagebox.showerror("Erreur ", "Une erreur s'est produite lors de la completion de la commande'.")
         
 
-        print("hello")
 
    
     

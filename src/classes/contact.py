@@ -45,9 +45,6 @@ class Contact:
         self.cursor.execute('INSERT INTO contact (id_utilisateur, sujet, message, date) VALUES (?, ?, ?, ?)', 
                             (self.id_utilisateur, self.sujet, self.message, self.date))
         self.conn.commit()  # Valider la transaction
-
-        # Récupérer le contact pour obtenir son ID
-        contact = self.get_by_champ("id_utilisateur", self.id_utilisateur)
         self.id = self.cursor.lastrowid 
 
         return 'Le contact a été ajouté'
