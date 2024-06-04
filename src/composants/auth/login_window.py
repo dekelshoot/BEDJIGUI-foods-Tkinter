@@ -84,7 +84,7 @@ class LoginWindow(tk.Toplevel):
     def register(self):
         # Ouvrir une nouvelle fenêtre d'inscription
         register_win = RegisterWindow(self.master)
-        register_win.attributes('-topmost', True)
+        # register_win.attributes('-topmost', True)
         register_win.grab_set() # Mettre la nouvelle fenêtre en avant
         register_win.focus_force()
         self.destroy()
