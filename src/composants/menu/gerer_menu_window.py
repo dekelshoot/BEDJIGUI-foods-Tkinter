@@ -156,10 +156,10 @@ class GererMenuWindow(tk.Toplevel):
     def menu_selected(self, event):
         try:    
             selected_item = self.tr_view.selection()[0]
-            print(selected_item)
+            
             sel_item_val = self.tr_view.item(selected_item)['values']
             self.menu = sel_item_val
-            print("sel_item_val",sel_item_val)
+            
             sel_menu_txt = f"{sel_item_val[0]}) {sel_item_val[1]} "
             self.sel_menu_id_lbl.config(text="")
             self.sel_menu_id_lbl.config(text=sel_menu_txt)
@@ -214,6 +214,7 @@ class GererMenuWindow(tk.Toplevel):
                 prix = float(prix)
                 menu = Menu('restaurant.db')
                 menu.add(nom,description,prix,id=id)
+                print(message)
                 message = menu.update()
                 if message == "le menu n'existe pas!!!" or message=='Un menu avec ce nom existe déja!!!':
                     messagebox.showinfo("Erreur", message)
@@ -245,6 +246,7 @@ class GererMenuWindow(tk.Toplevel):
                 menu = Menu('restaurant.db')
                 menu.add(nom,description,prix)
                 message = menu.save()
+                print(message)
                 if message == 'le menu existe déjà':
                     messagebox.showinfo("Erreur", message)
                 if message == 'Le menu a été ajouté':

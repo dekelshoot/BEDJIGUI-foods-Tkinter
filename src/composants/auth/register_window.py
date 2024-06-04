@@ -105,6 +105,7 @@ class RegisterWindow(tk.Toplevel):
             user = Utilisateur('restaurant.db')
             user.add(register_name, register_prenom, register_username, register_password,register_email, register_telephone, register_adresse)
             message=user.register()
+            print(message)
             if message == 'Le compte a été créé':
                 self.destroy()
                 self.master.init_accueil()

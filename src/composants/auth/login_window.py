@@ -72,7 +72,7 @@ class LoginWindow(tk.Toplevel):
         # Création d'un objet Utilisateur pour gérer la connexion
         user = Utilisateur('restaurant.db')
         message = user.login(login_username, login_password)
-
+        print(message)
         # Vérification du message de retour
         if message == 'connexion réussie':
             self.destroy()  # Fermer la fenêtre si la connexion réussit

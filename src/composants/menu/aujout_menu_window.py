@@ -81,6 +81,7 @@ class AjoutMenuWindow(tk.Toplevel):
                 menu = Menu('restaurant.db')
                 menu.add(nom,description,prix)
                 message = menu.save()
+                print(message)
                 if message == 'le menu existe déjà':
                     messagebox.showinfo("Erreur", message)
                 if message == 'Le menu a été ajouté':

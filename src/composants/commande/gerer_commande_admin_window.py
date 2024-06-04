@@ -16,7 +16,7 @@ class GererCommandAdminWindow(tk.Toplevel):
 
 
 
-        self.win_width = 890
+        self.win_width = 1080
         self.win_height = 350
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
@@ -52,18 +52,20 @@ class GererCommandAdminWindow(tk.Toplevel):
         self.tr_v_vscr = ttk.Scrollbar(self.command_conf_lf, orient="vertical")
 
 
-        self.tr_view_columns = ('id', 'menu','total','date', 'statut')
+        self.tr_view_columns = ('id', 'menu','total','date','commentaire', 'statut')
         self.tr_view = ttk.Treeview(self.command_conf_lf, columns=self.tr_view_columns, show='headings', height=8, selectmode='browse', yscrollcommand=self.tr_v_vscr.set)
         self.tr_view.column('id', width=50, anchor=tk.CENTER)
         self.tr_view.column('menu', width=200, anchor=tk.CENTER)
         self.tr_view.column('total', width=200, anchor=tk.CENTER)
         self.tr_view.column('date', width=200, anchor=tk.CENTER)
+        self.tr_view.column('commentaire', width=200, anchor=tk.CENTER)
         self.tr_view.column('statut', width=200, anchor=tk.CENTER)
 
         self.tr_view.heading('id', text="ID")
         self.tr_view.heading('menu', text="Menu")
         self.tr_view.heading('total', text="Total(€)")
         self.tr_view.heading('date', text="Date")  
+        self.tr_view.heading('commentaire', text="Commntaire")  
         self.tr_view.heading('statut', text="Statut")    
 
         self.tr_view.grid(column=0,row=0, rowspan=6, columnspan=3, pady=10)
@@ -103,7 +105,7 @@ class GererCommandAdminWindow(tk.Toplevel):
         database = Database('restaurant.db')
 
         query =  '''
-            SELECT commande.id , menu.nom, menu.prix, commande.date , commande.statut
+            SELECT commande.id , menu.nom, menu.prix, commande.date , commande.commentaire, commande.statut
             FROM table_list
             JOIN commande ON table_list.id_commande = commande.id
             JOIN menu ON table_list.id_menu = menu.id
@@ -126,11 +128,6 @@ class GererCommandAdminWindow(tk.Toplevel):
 
                 result.append(tuple(r))              
         
-        print(result)
-        # for row in res:
-        #     total = total+(row[0]*row[1])
-
-        
         if len(result) > 0:    
             for el in result:
                 self.tr_view.insert('', tk.END, iid=f"{el[0]}", values=el)
@@ -141,7 +138,7 @@ class GererCommandAdminWindow(tk.Toplevel):
             selected_item = self.tr_view.selection()[0]
             sel_item_val = self.tr_view.item(selected_item)['values']
             self.command = sel_item_val
-            print("sel_item_val",sel_item_val)
+            
             sel_menu_txt = f"{sel_item_val[0]}) {sel_item_val[1]} "
             self.sel_menu_id_lbl.config(text="-")
             self.sel_menu_id_lbl.config(text=sel_menu_txt)
@@ -162,7 +159,7 @@ class GererCommandAdminWindow(tk.Toplevel):
 
             table_list.delete_with_command_id(id)
             message = commande.delete_by_id(id)
-            
+            print(message)
             self.tr_view.delete(*self.tr_view.get_children())
             self.retreive_menu_items()
             self.sel_menu_id_lbl.config(text="-")
@@ -185,8 +182,10 @@ class GererCommandAdminWindow(tk.Toplevel):
 
             commande = Commande('restaurant.db')
             cmd = commande.get_by_id(id)[0]
-            commande.add(cmd[1],"Complet",cmd[3],cmd[0])
+            
+            commande.add(cmd[1],"Complet",cmd[3],cmd[4],cmd[0])
             message = commande.update()
+            print(message)
             self.tr_view.delete(*self.tr_view.get_children())
             self.retreive_menu_items()
             self.sel_menu_id_lbl.config(text="")

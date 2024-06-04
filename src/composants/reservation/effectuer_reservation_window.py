@@ -109,6 +109,7 @@ class ReservationWindow(tk.Toplevel):
         reservation = Reservation('restaurant.db')
         reservation.add(id_utilisateur,reservation_nb_people,reservation_hours,reservation_date,resevation_statut,reservation_comment)
         message=reservation.save()
+        print(message)
         if message == 'La reservation a été éffectuée':
             self.destroy()
         usr_rep=messagebox.askokcancel(message,message)

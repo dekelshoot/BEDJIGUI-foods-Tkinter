@@ -20,7 +20,7 @@ class PasserCommand(tk.Toplevel):
         self.order_ls = []
         
         self.win_width = 600
-        self.win_height = 600
+        self.win_height = 700
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
 
@@ -79,14 +79,23 @@ class PasserCommand(tk.Toplevel):
         self.btn_total_menu = ttk.Button(self.main_frame, text="Calculer", command=self.calculate_price)
         self.btn_total_menu.grid(column=1, row=3, padx=(50,0), pady=10)
 
+        # Label Frame pour le commentaire
+        self.commentaire_conf_lb = ttk.LabelFrame(self.main_frame, text="Avez vous une information à nous communiquer concernant la commande?")
+        self.commentaire_conf_lb.grid(column=0, row=4, pady=5, rowspan=4, columnspan=4, sticky=tk.EW)
+        self.commentaire_lb = ttk.Label(self.commentaire_conf_lb, text="Commentaire")
+        self.commentaire_lb.grid(column=0, row=5, sticky=tk.W, padx=10, pady=10)
+        # Champ de saisie pour le commentaire
+        self.commentaire_ent = tk.Text(self.commentaire_conf_lb,height=3, width=40)
+        self.commentaire_ent.grid(column=1, row=5, sticky=tk.E, padx=0)
+
         self.btn_ajouter_menu = ttk.Button(self.main_frame, text="Ajouter un menu", command=self.ajouter_menu)
-        self.btn_ajouter_menu.grid(column=0, row=4, padx=(50,0), pady=10)
+        self.btn_ajouter_menu.grid(column=0, row=8, padx=(50,0), pady=10)
 
         self.close_btn = ttk.Button(self.main_frame,text='Fermer',command=self.destroy)
-        self.close_btn.grid(column=1, row=4, padx=(50,0), pady=10)
+        self.close_btn.grid(column=1, row=8, padx=(50,0), pady=10)
 
         self.send_to_ch = ttk.Button(self.main_frame,text='Passer la commande', state=tk.DISABLED, command=self.commander)
-        self.send_to_ch.grid(column=2, row=4, padx=(50,0), pady=10)
+        self.send_to_ch.grid(column=2, row=8, padx=(50,0), pady=10)
         
 
 
@@ -128,6 +137,7 @@ class PasserCommand(tk.Toplevel):
     def enregistre_commande(self,orders):
 
         print(orders)
+        commentaire = self.commentaire_ent.get("1.0", tk.END).strip()
 
         menu = Menu('restaurant.db')
         table_list = Table('restaurant.db')
@@ -153,8 +163,8 @@ class PasserCommand(tk.Toplevel):
             menus_id.append((m[0][0],m[0][3],int(order[1])))
         del menu
 
-
-        commande.add(id_utilisateur,"en cours",datetime.today())
+        commentaire
+        commande.add(id_utilisateur,"en cours",datetime.today(),commentaire if commentaire else "-")
         commande.save()
         
 
@@ -179,6 +189,7 @@ class PasserCommand(tk.Toplevel):
         for order in self.order_ls:
             order.destroy_all2()
         self.order_ls = []
+        self.commentaire_ent.delete("1.0", tk.END)  # Efface le contenu actuel du widget Text
         
     def ajouter_menu(self):
         self.max = self.pr_sel_canvas_frm.grid_size()

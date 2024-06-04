@@ -178,7 +178,7 @@ class GererCommandUserWindow(tk.Toplevel):
 
             table_list.delete_with_command_id(id)
             message = commande.delete_by_id(id)
-            
+            print(message)
             self.tr_view.delete(*self.tr_view.get_children())
             self.retreive_menu_items()
             self.sel_menu_id_lbl.config(text="-")

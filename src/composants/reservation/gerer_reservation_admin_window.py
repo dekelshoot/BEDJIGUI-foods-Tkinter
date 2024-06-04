@@ -105,7 +105,7 @@ class GererReservationAdminWindow(tk.Toplevel):
         reservation = Reservation("restaurant.db")
         result=reservation.get_all()
         
-        print(result)
+       
 
         
         if len(result) > 0:    
@@ -120,7 +120,7 @@ class GererReservationAdminWindow(tk.Toplevel):
             selected_item = self.tr_view.selection()[0]
             sel_item_val = self.tr_view.item(selected_item)['values']
             self.command = sel_item_val
-            print("sel_item_val",sel_item_val)
+            
             sel_menu_txt = f"{sel_item_val[0]}) {sel_item_val[1]} "
             self.sel_menu_id_lbl.config(text="-")
             self.sel_menu_id_lbl.config(text=sel_menu_txt)
@@ -162,6 +162,7 @@ class GererReservationAdminWindow(tk.Toplevel):
             res = reservation.get_by_id(id)[0]
             reservation.add(res[1],res[2],res[3],res[4],"confirmé",res[6],id=id)
             message = reservation.update()
+            print(message)
             self.tr_view.delete(*self.tr_view.get_children())
             self.retreive_menu_items()
             self.sel_menu_id_lbl.config(text="")

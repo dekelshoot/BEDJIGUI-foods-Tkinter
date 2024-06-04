@@ -85,6 +85,7 @@ class ContactWindow(tk.Toplevel):
             contact = Contact('restaurant.db')
             contact.add(id_utilisateur,sujet,message,datetime.today())
             message = contact.save()
+            print(message)
             if message == 'Le contact a été ajouté':
                 self.destroy()
                 messagebox.showinfo("Succès", f"Message envoyé:\nsujet: {sujet}\nmessage: {message}\n")

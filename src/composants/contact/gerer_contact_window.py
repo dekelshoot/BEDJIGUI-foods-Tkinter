@@ -95,8 +95,7 @@ class GererContactWindow(tk.Toplevel):
         utilisateur = Utilisateur("restaurant.db")
         result=contact.get_all()
         
-        print(result)
-
+        
     
         if len(result) > 0:    
             for el in result:
@@ -111,7 +110,7 @@ class GererContactWindow(tk.Toplevel):
             selected_item = self.tr_view.selection()[0]
             sel_item_val = self.tr_view.item(selected_item)['values']
             self.command = sel_item_val
-            print("sel_item_val",sel_item_val)
+            
             sel_menu_txt = f"{sel_item_val[0]}) {sel_item_val[1]} "
             self.sel_menu_id_lbl.config(text="-")
             self.sel_menu_id_lbl.config(text=sel_menu_txt)
@@ -128,7 +127,7 @@ class GererContactWindow(tk.Toplevel):
             contact = Contact('restaurant.db')
 
             message = contact.delete_by_id(id)
-            
+            print(message)
             self.tr_view.delete(*self.tr_view.get_children())
             self.retreive_menu_items()
             self.sel_menu_id_lbl.config(text="-")
@@ -151,6 +150,7 @@ class GererContactWindow(tk.Toplevel):
             res = contact.get_by_id(id)[0]
             contact.add(res[1],res[2],res[3],res[4],"confirmé",res[6],id=id)
             message = contact.update()
+            print(message)
             self.tr_view.delete(*self.tr_view.get_children())
             self.retreive_menu_items()
             self.sel_menu_id_lbl.config(text="")
