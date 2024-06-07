@@ -214,7 +214,6 @@ class GererMenuWindow(tk.Toplevel):
                 prix = float(prix)
                 menu = Menu('restaurant.db')
                 menu.add(nom,description,prix,id=id)
-                print(message)
                 message = menu.update()
                 if message == "le menu n'existe pas!!!" or message=='Un menu avec ce nom existe déja!!!':
                     messagebox.showinfo("Erreur", message)

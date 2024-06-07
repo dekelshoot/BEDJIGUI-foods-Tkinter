@@ -105,7 +105,7 @@ class GererCommandAdminWindow(tk.Toplevel):
         database = Database('restaurant.db')
 
         query =  '''
-            SELECT commande.id , menu.nom, menu.prix, commande.date , commande.commentaire, commande.statut
+            SELECT DISTINCT commande.id , menu.nom, menu.prix, commande.date , commande.commentaire, commande.statut,table_list.quantite
             FROM table_list
             JOIN commande ON table_list.id_commande = commande.id
             JOIN menu ON table_list.id_menu = menu.id
@@ -114,19 +114,24 @@ class GererCommandAdminWindow(tk.Toplevel):
         result = []
         total= 0
         temp=[]
+        print(res)
+        r = list(res[0])
+        id = []
         for row in res:
-            total =row[2]
-            r= list(row)
-            if row[0] not in temp:  
-                temp.append(row[0])
-                for ro in res:
-                    if ro[0]==row[0]:
-                        if ro[1]!=row[1]:
-                            r[1]=r[1]+' , '+ro[1]
-                            r[2] +=ro[2]
-                
-
-                result.append(tuple(r))              
+            if row[0] not in id:
+                id.append(row[0])
+        print(id)
+        for i in id:
+            ro = [i,"",0,"","",""]
+            for row in res:
+                if row[0]==i:
+                    ro[1]= ro[1]+' , '+row[1]
+                    ro[2]+=row[2]*row[6]
+                    ro[3]= row[3]
+                    ro[4]=row[4]
+                    ro[5]= row[5]
+            ro[1] = ro[1][2:]
+            result.append(ro)            
         
         if len(result) > 0:    
             for el in result:
@@ -139,7 +144,7 @@ class GererCommandAdminWindow(tk.Toplevel):
             sel_item_val = self.tr_view.item(selected_item)['values']
             self.command = sel_item_val
             
-            sel_menu_txt = f"{sel_item_val[0]}) {sel_item_val[1]} "
+            sel_menu_txt = f"{sel_item_val[0]}) "
             self.sel_menu_id_lbl.config(text="-")
             self.sel_menu_id_lbl.config(text=sel_menu_txt)
             

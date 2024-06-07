@@ -6,7 +6,8 @@ __pycache__
 
 
 db.sqlite3
-
+env/
+env
 
 .DS_Store
 .idea
@@ -15,3 +16,5 @@ db.sqlite3
 /media/
 /django-env/
 utilisateur
+retaurant.db
+*.db

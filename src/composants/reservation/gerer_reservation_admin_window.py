@@ -104,12 +104,15 @@ class GererReservationAdminWindow(tk.Toplevel):
 
         reservation = Reservation("restaurant.db")
         result=reservation.get_all()
-        
+        print(result)
        
+        res = []
+        for re in result:
+            res.append([re[0],re[2],re[4],re[3],re[6],re[5]])
 
         
-        if len(result) > 0:    
-            for el in result:
+        if len(res) > 0:    
+            for el in res:
                 self.tr_view.insert('', tk.END, iid=f"{el[0]}", values=el)
         
                                 

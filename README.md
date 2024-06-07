@@ -10,6 +10,8 @@ La fonctionnalité principale de cette application consiste à gérer le systèm
 
 pour lancer le projet placez vous à la racine du projet et suivrez les instructions suivantes:
 
+## avoir python 3.11
+
 ### créer un environement virtuel
 
 `python3 -m venv env` ou `python -m venv env`

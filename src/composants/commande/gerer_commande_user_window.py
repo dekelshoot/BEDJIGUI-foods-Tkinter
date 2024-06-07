@@ -116,7 +116,7 @@ class GererCommandUserWindow(tk.Toplevel):
             self.destroy()
 
         query =  f'''
-            SELECT commande.id , menu.nom, menu.prix, commande.date , commande.statut, table_list.quantite
+            SELECT DISTINCT commande.id , menu.nom, menu.prix, commande.date , commande.statut, table_list.quantite
             FROM table_list
             JOIN utilisateur ON commande.id_utilisateur = {id_utilisateur}
             JOIN commande ON table_list.id_commande = commande.id
@@ -126,21 +126,36 @@ class GererCommandUserWindow(tk.Toplevel):
         result = []
         total= 0
         temp=[]
-        
+        print(res)
+        r = list(res[0])
+        id = []
         for row in res:
-            total =row[2]
-            r= list(row)
-            r[2]*=r[5]
-            if row[0] not in temp:  
-                temp.append(row[0])
-                for i in range(res.index(row)+2,len(res)):
-                    if res[i][0]==row[0]:
-                        if res[i][1]!=row[1]:
-                            r[1]=r[1]+' , '+res[i][1]
-                            r[2] +=res[i][2]*res[i][5]
+            if row[0] not in id:
+                id.append(row[0])
+        print(id)
+        for i in id:
+            ro = [i,"",0,"",""]
+            for row in res:
+                if row[0]==i:
+                    ro[1]= ro[1]+' , '+row[1]
+                    ro[2]+=row[2]*row[5]
+                    ro[3]= row[3]
+                    ro[4]=row[4]
+            ro[1] = ro[1][2:]
+            result.append(ro)
+            # total =row[2]
+            # r= list(row)
+            # r[2]*=r[5]
+            # if row[0] not in temp:  
+            #     temp.append(row[0])
+            #     for i in range(res.index(row)+2,len(res)):
+            #         if res[i][0]==row[0]:
+            #             if res[i][1]!=row[1]:
+            #                 r[1]=r[1]+' , '+res[i][1]
+            #                 r[2] +=res[i][2]*res[i][5]
                 
-                r[1] = " , ".join(list(set(r[1].replace(" ", "").split(','))))
-                result.append(tuple(r))              
+            #     r[1] = " , ".join(list(set(r[1].replace(" ", "").split(','))))
+            #     result.append(tuple(r))              
         
         print(result)
         # for row in res:
@@ -158,7 +173,7 @@ class GererCommandUserWindow(tk.Toplevel):
             sel_item_val = self.tr_view.item(selected_item)['values']
             self.command = sel_item_val
             print("sel_item_val",sel_item_val)
-            sel_menu_txt = f"{sel_item_val[0]}) {sel_item_val[1]} "
+            sel_menu_txt = f"{sel_item_val[0]})"
             self.sel_menu_id_lbl.config(text="-")
             self.sel_menu_id_lbl.config(text=sel_menu_txt)
             
@@ -223,7 +238,7 @@ class GererCommandUserWindow(tk.Toplevel):
             tag = self.html_order(ind, val[0], val[1], val[2])
             tags.append(tag)
             ind += 1
-        total_price = f"<span style='top:{170+(len(tags) * 40)}pt; left:85pt; position:absolute; font-size:20pt;'>Total: total des menus commandés {tot_q}, \t prix total à payer: {tot_p} €</span>"
+        total_price = f"<span style='top:{170+(len(tags) * 40)}pt; left:85pt; position:absolute; font-size:20pt;'>Total à payer: {tot_p} €</span>"
         
         with open("order_template.html") as html_doc:
             doc = BeautifulSoup(html_doc, 'html.parser')
